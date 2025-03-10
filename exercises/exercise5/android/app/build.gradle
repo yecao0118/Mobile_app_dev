@@ -1,0 +1,39 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.exercise6"
+    compileSdk = 34  // 直接写具体版本号，避免 `flutter.compileSdkVersion` 为空导致的错误
+    ndkVersion = "25.1.8937393" // 可删除或替换为你的 NDK 版本
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.exercise6"
+        minSdk = 21  // 语法修正
+        targetSdk = 34 // 语法修正
+        versionCode = 1  // 确保 versionCode 有值
+        versionName = "1.0"  // 确保 versionName 有值
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug // 使用 debug 签名，发布时需更改
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}

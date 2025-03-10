@@ -1,0 +1,62 @@
+[
+    {
+      "question": "Is Flutter an open-source framework?",
+      "type": "true_false",
+      "options": ["True", "False"],
+      "correctAnswers": [0]
+    },
+    {
+      "question": "Which language is used by Flutter?",
+      "type": "single",
+      "options": ["Java", "Kotlin", "Dart", "Swift"],
+      "correctAnswers": [2]
+    },
+    {
+      "question": "Which of the following are mobile OS?",
+      "type": "multiple",
+      "options": ["Android", "iOS", "Dart", "Flutter"],
+      "correctAnswers": [0, 1]
+    },
+    {
+      "question": "Flutter can be used to build web apps.",
+      "type": "true_false",
+      "options": ["True", "False"],
+      "correctAnswers": [0]
+    },
+    {
+      "question": "Which widget is used for layouts in Flutter?",
+      "type": "single",
+      "options": ["Row", "Column", "Stack", "All of the above"],
+      "correctAnswers": [3]
+    },
+    {
+      "question": "Select the programming languages:",
+      "type": "multiple",
+      "options": ["Flutter", "Dart", "JavaScript", "Android"],
+      "correctAnswers": [1, 2]
+    },
+    {
+      "question": "Is setState used to update UI in Flutter's Stateful Widgets?",
+      "type": "true_false",
+      "options": ["True", "False"],
+      "correctAnswers": [0]
+    },
+    {
+      "question": "Which of the following is a recommended state management approach?",
+      "type": "single",
+      "options": ["Provider", "BLoC", "Riverpod", "Any of the above"],
+      "correctAnswers": [3]
+    },
+    {
+      "question": "Which packages are used to write unit tests in Flutter?",
+      "type": "multiple",
+      "options": ["flutter_test", "test", "http", "intl"],
+      "correctAnswers": [0, 1]
+    },
+    {
+      "question": "Which is correct about Flutter?",
+      "type": "multiple",
+      "options": ["Uses Skia engine", "Uses Dart language", "Owned by Google", "Cannot build desktop apps"],
+      "correctAnswers": [0, 1, 2]
+    }
+  ]

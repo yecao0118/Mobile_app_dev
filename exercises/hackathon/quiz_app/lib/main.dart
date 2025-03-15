@@ -46,7 +46,7 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer?.cancel(); // Cancel timer when the widget is disposed
     super.dispose();
   }
 
@@ -54,25 +54,32 @@ class _QuizPageState extends State<QuizPage> {
     String data = await rootBundle.loadString('assets/quiz_data.json');
     final List<dynamic> jsonResult = json.decode(data);
 
-    // Shuffle the questions for random order
-    jsonResult.shuffle();
+    jsonResult.shuffle(); // Shuffle questions for random order
 
     setState(() {
       _questions = jsonResult;
+      _currentQuestionIndex = 0; // Reset index
+      _userSelections.clear(); // Clear previous answers
+      _score = 0; // Reset score
+      _quizTimedOut = false;
+      _timeRemaining = 60; // Reset time
     });
 
-    // Start the timer after questions are loaded
     _startTimer();
   }
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        _timer?.cancel(); // Stop timer if widget is no longer mounted
+        return;
+      }
+
       setState(() {
         _timeRemaining--;
       });
 
       if (_timeRemaining <= 0) {
-        // Time is up, user gets 0 score
         setState(() {
           _quizTimedOut = true;
         });
@@ -88,7 +95,6 @@ class _QuizPageState extends State<QuizPage> {
         _currentQuestionIndex++;
       });
     } else {
-      // Finished all questions
       _calculateScore();
       _goToResultPage();
     }
@@ -102,10 +108,8 @@ class _QuizPageState extends State<QuizPage> {
       final correctAnswers = List<int>.from(question['correctAnswers']);
       final userAnswers = _userSelections[i] ?? [];
 
-      // Compare sets
-      final correctSet = correctAnswers.toSet();
-      final userSet = userAnswers.toSet();
-      if (correctSet.length == userSet.length && correctSet.containsAll(userSet)) {
+      if (Set.from(correctAnswers).containsAll(userAnswers) &&
+          Set.from(userAnswers).containsAll(correctAnswers)) {
         tempScore++;
       }
     }
@@ -119,6 +123,7 @@ class _QuizPageState extends State<QuizPage> {
         builder: (_) => ResultPage(
           score: _quizTimedOut ? 0 : _score,
           totalQuestions: _questions.length,
+          onRestart: _loadQuestions, // Pass restart function
         ),
       ),
     );
@@ -126,7 +131,6 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    // If questions are not loaded yet
     if (_questions.isEmpty) {
       return Scaffold(
         appBar: AppBar(title: const Text('Quiz App')),
@@ -169,10 +173,7 @@ class _QuizPageState extends State<QuizPage> {
             _buildOptions(questionType, options),
             const Spacer(),
             ElevatedButton(
-              onPressed: () {
-                // Move to next question
-                _goToNextQuestion();
-              },
+              onPressed: _goToNextQuestion,
               child: Text(
                 _currentQuestionIndex < _questions.length - 1
                     ? 'Next'
@@ -186,11 +187,9 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   Widget _buildOptions(String questionType, List<String> options) {
-    // If haven't selected anything for this question, default to empty list
     final selectedIndices = _userSelections[_currentQuestionIndex] ?? [];
 
     if (questionType == 'true_false' || questionType == 'single') {
-      // Render Radio Buttons (since there's only one correct answer)
       return Column(
         children: options.asMap().entries.map((entry) {
           int index = entry.key;
@@ -208,7 +207,6 @@ class _QuizPageState extends State<QuizPage> {
         }).toList(),
       );
     } else {
-      // questionType == 'multiple': Render Checkboxes
       return Column(
         children: options.asMap().entries.map((entry) {
           int index = entry.key;
@@ -237,11 +235,13 @@ class _QuizPageState extends State<QuizPage> {
 class ResultPage extends StatelessWidget {
   final int score;
   final int totalQuestions;
+  final VoidCallback onRestart;
 
   const ResultPage({
     Key? key,
     required this.score,
     required this.totalQuestions,
+    required this.onRestart, // Function to restart quiz
   }) : super(key: key);
 
   @override
@@ -251,9 +251,25 @@ class ResultPage extends StatelessWidget {
         title: const Text('Quiz Results'),
       ),
       body: Center(
-        child: Text(
-          'Your score: $score / $totalQuestions',
-          style: const TextStyle(fontSize: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Your score: $score / $totalQuestions',
+              style: const TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                onRestart(); // Restart quiz
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const QuizPage()),
+                );
+              },
+              child: const Text('Restart Quiz'),
+            ),
+          ],
         ),
       ),
     );

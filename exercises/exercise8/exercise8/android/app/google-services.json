@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "644307559148",
+    "project_id": "hypergaragesales",
+    "storage_bucket": "hypergaragesales.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644307559148:android:0c15e17d95051a1341fbc9",
+        "android_client_info": {
+          "package_name": "com.example.gtk_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4MnmapmHzv-tdquL9WwB1RWcUSx9B1TU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644307559148:android:d0f1db60e464e9af41fbc9",
+        "android_client_info": {
+          "package_name": "om.example.hypergaragesale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4MnmapmHzv-tdquL9WwB1RWcUSx9B1TU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

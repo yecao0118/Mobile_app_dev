@@ -117,8 +117,8 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Display Picture')),
       body: Center(
         child: kIsWeb
-            ? Image.network(imagePath) // 在 Web 端使用网络图片
-            : Image.file(File(imagePath)), // 在 Android/iOS 端使用 File
+            ? Image.network(imagePath) 
+            : Image.file(File(imagePath)),
       ),
     );
   }

@@ -1,0 +1,2 @@
+/Users/yecao/Documents/class/info6350/INFO6350_002246072_YeCao/exercises/exercise3/android/app/.cxx/Debug/k4g1e71n/x86/CMakeFiles/edit_cache.dir
+/Users/yecao/Documents/class/info6350/INFO6350_002246072_YeCao/exercises/exercise3/android/app/.cxx/Debug/k4g1e71n/x86/CMakeFiles/rebuild_cache.dir
